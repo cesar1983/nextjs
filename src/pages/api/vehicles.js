@@ -12,24 +12,20 @@ const vehicles = [
 export default (req, res) => {
   res.statusCode = 200;
 
-  let filteredVehicles = [];
+  let filteredVehicles = vehicles;
   if (req.query.vehicle) {
     filteredVehicles = vehicles.filter((vehicle) => {
       return vehicle.v === req.query.vehicle;
     });
-  } else {
-    filteredVehicles = vehicles;
   }
 
   if (req.query.brand) {
     filteredVehicles = filteredVehicles.filter((vehicle) => {
       return vehicle.b === req.query.brand;
     });
-  } else {
-    filteredVehicles = vehicles;
   }
 
   setTimeout(function () {
     res.json(filteredVehicles);
-  }, 2000); // delay de 2 segundos para teste
+  }, 1000); // delay de 2 segundos para teste
 };

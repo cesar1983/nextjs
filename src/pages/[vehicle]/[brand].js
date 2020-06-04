@@ -46,26 +46,19 @@ export default function Brand({ vehiclesList }) {
   );
 }
 
-Brand.getInitialProps = async (ctx) => {
-  if (!ctx.req) {
+Brand.getInitialProps = async ({ req, query } /* NextPageContext */) => {
+  if (!req) {
     return { vehiclesList: [] };
   }
 
-  const { query } = ctx;
   let apiVehicles = null;
-  await fetch(
+  const response = await fetch(
     "http://localhost:3000/api/vehicles?vehicle=" +
       query.vehicle +
       "&brand=" +
       query.brand
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      apiVehicles = data;
-    })
-    .catch((error) => {
-      console.log("Error");
-    });
+  );
+  const apiVehicles = await response.json();
 
   console.log("[Brand.getInitialProps]", apiVehicles);
 
